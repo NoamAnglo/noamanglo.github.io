@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Title</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
@@ -30,6 +33,52 @@
       max-width: 1000px;
       margin: 0 auto;
       padding: 32px 28px 48px;
+    }
+
+    .page::after {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      background: rgba(0, 0, 0, 0.45);
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .page:has(.image-box:hover)::after,
+    .page:has(.image-box:focus-visible)::after,
+    .page:has(.entry:hover)::after {
+      opacity: 1;
+    }
+
+    .page:has(.image-box:hover) .contents,
+    .page:has(.image-box:focus-visible) .contents {
+      position: relative;
+      z-index: 3;
+    }
+
+    .page:has(.image-box:hover) .entry,
+    .page:has(.image-box:focus-visible) .entry {
+      opacity: 0.4;
+    }
+
+    .page:has(.image-a:hover) .entry[href="a.html"],
+    .page:has(.image-b:hover) .entry[href="b.html"],
+    .page:has(.image-c:hover) .entry[href="c.html"],
+    .page:has(.image-d:hover) .entry[href="d.html"],
+    .page:has(.image-e:hover) .entry[href="e.html"],
+    .page:has(.image-f:hover) .entry[href="f.html"],
+    .page:has(.image-g:hover) .entry[href="g.html"],
+    .page:has(.image-a:focus-visible) .entry[href="a.html"],
+    .page:has(.image-b:focus-visible) .entry[href="b.html"],
+    .page:has(.image-c:focus-visible) .entry[href="c.html"],
+    .page:has(.image-d:focus-visible) .entry[href="d.html"],
+    .page:has(.image-e:focus-visible) .entry[href="e.html"],
+    .page:has(.image-f:focus-visible) .entry[href="f.html"],
+    .page:has(.image-g:focus-visible) .entry[href="g.html"] {
+      opacity: 1;
+      background: #fff;
     }
 
     .masthead {
@@ -70,23 +119,108 @@
       z-index: 0;
       background: #d6d2c0;
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: clamp(2.8rem, 4vw, 4.2rem);
+      align-items: flex-end;
+      justify-content: flex-end;
+      padding: 10px;
+      font-size: clamp(1.372rem, 1.96vw, 2.058rem);
       font-weight: 700;
-      color: rgba(26, 25, 23, 0.7);
+      color: var(--paper);
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-family: "Open Sans", sans-serif;
       overflow: hidden;
       text-decoration: none;
-      transition: background-color 180ms ease, transform 180ms ease;
+      transition: background-color 180ms ease;
     }
 
-    .image-box:hover,
-    .image-box:focus-visible {
+    .image-box:has(img):hover,
+    .image-box:has(img):focus-visible,
+    .page:has(.entry[href="a.html"]:hover) .image-a,
+    .page:has(.entry[href="b.html"]:hover) .image-b,
+    .page:has(.entry[href="c.html"]:hover) .image-c,
+    .page:has(.entry[href="d.html"]:hover) .image-d,
+    .page:has(.entry[href="e.html"]:hover) .image-e,
+    .page:has(.entry[href="f.html"]:hover) .image-f,
+    .page:has(.entry[href="g.html"]:hover) .image-g,
+    .page:has(.entry[href="a.html"]:focus-visible) .image-a,
+    .page:has(.entry[href="b.html"]:focus-visible) .image-b,
+    .page:has(.entry[href="c.html"]:focus-visible) .image-c,
+    .page:has(.entry[href="d.html"]:focus-visible) .image-d,
+    .page:has(.entry[href="e.html"]:focus-visible) .image-e,
+    .page:has(.entry[href="f.html"]:focus-visible) .image-f,
+    .page:has(.entry[href="g.html"]:focus-visible) .image-g {
+      z-index: 3;
+      overflow: visible;
+    }
+
+    .page:has(.entry[href="a.html"]:hover) .image-a::before,
+    .page:has(.entry[href="b.html"]:hover) .image-b::before,
+    .page:has(.entry[href="c.html"]:hover) .image-c::before,
+    .page:has(.entry[href="d.html"]:hover) .image-d::before,
+    .page:has(.entry[href="e.html"]:hover) .image-e::before,
+    .page:has(.entry[href="f.html"]:hover) .image-f::before,
+    .page:has(.entry[href="g.html"]:hover) .image-g::before {
+      opacity: 0;
+    }
+
+    .image-box img {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .image-box:hover img,
+    .image-box:focus-visible img,
+    .page:has(.entry[href="a.html"]:hover) .image-a img,
+    .page:has(.entry[href="b.html"]:hover) .image-b img,
+    .page:has(.entry[href="c.html"]:hover) .image-c img,
+    .page:has(.entry[href="d.html"]:hover) .image-d img,
+    .page:has(.entry[href="e.html"]:hover) .image-e img,
+    .page:has(.entry[href="f.html"]:hover) .image-f img,
+    .page:has(.entry[href="g.html"]:hover) .image-g img,
+    .page:has(.entry[href="a.html"]:focus-visible) .image-a img,
+    .page:has(.entry[href="b.html"]:focus-visible) .image-b img,
+    .page:has(.entry[href="c.html"]:focus-visible) .image-c img,
+    .page:has(.entry[href="d.html"]:focus-visible) .image-d img,
+    .page:has(.entry[href="e.html"]:focus-visible) .image-e img,
+    .page:has(.entry[href="f.html"]:focus-visible) .image-f img,
+    .page:has(.entry[href="g.html"]:focus-visible) .image-g img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      right: auto;
+      bottom: auto;
+      width: var(--expanded-image-width);
+      height: var(--expanded-image-height);
+      max-width: none;
+      object-fit: contain;
+      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    .image-box::before {
+      position: absolute;
+      inset: 0;
       z-index: 1;
-      background: #e3dfce;
-      transform: scale(1.035);
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.03) 40%, rgba(0, 0, 0, 0.42) 100%);
+      content: "";
+      opacity: 1;
+      transition: opacity 180ms ease;
+      pointer-events: none;
+    }
+
+    .image-box:hover::before,
+    .image-box:focus-visible::before {
+      opacity: 0;
+    }
+
+    .image-letter {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      z-index: 2;
     }
 
     .image-box:focus-visible,
@@ -152,6 +286,12 @@
       background: #fff;
     }
 
+    .entry:focus-visible,
+    .entry:hover {
+      position: relative;
+      z-index: 3;
+    }
+
     .entry:focus-visible {
       outline: 2px solid var(--ink);
       outline-offset: 3px;
@@ -161,9 +301,11 @@
       font-size: 1.36rem;
       line-height: 1.2;
       text-align: right;
-      color: var(--muted);
+      color: #000;
       font-weight: 700;
       transform: translate(-7px, 4px);
+      text-transform: uppercase;
+      font-family: "Open Sans", sans-serif;
     }
 
     .meta {
@@ -177,7 +319,7 @@
       line-height: 1.2;
       font-weight: 700;
       color: var(--ink);
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: "Open Sans", sans-serif;
     }
 
     .meta p {
@@ -230,67 +372,131 @@
 
     <main aria-label="Table of contents">
       <section class="image-grid" aria-label="Image placeholders">
-        <a class="image-box image-a" href="a.html" aria-label="Open portfolio page A">A</a>
-        <a class="image-box image-b" href="b.html" aria-label="Open portfolio page B">B</a>
-        <a class="image-box image-c" href="c.html" aria-label="Open portfolio page C">C</a>
-        <a class="image-box image-d" href="d.html" aria-label="Open portfolio page D">D</a>
-        <a class="image-box image-e" href="e.html" aria-label="Open portfolio page E">E</a>
-        <a class="image-box image-f" href="f.html" aria-label="Open portfolio page F">F</a>
-        <a class="image-box image-g" href="g.html" aria-label="Open portfolio page G">G</a>
+        <a class="image-box image-a" href="a.html" aria-label="Open OhmniClean Medical Disinfection Robot portfolio page">
+          <img src="images/ohmniclean.png" alt="OhmniClean UV-C disinfection robot">
+          <span class="image-letter">A</span>
+        </a>
+        <a class="image-box image-b" href="b.html" aria-label="Open BahaWatch portfolio page">
+          <img src="images/bahawatch.png" alt="BahaWatch water-level monitor installed beside a stream">
+          <span class="image-letter">B</span>
+        </a>
+        <a class="image-box image-c" href="c.html" aria-label="Open Nanalysis 100MHz NMR Spectrometer portfolio page">
+          <img src="images/nanalysis-nmr.png" alt="Nanalysis 60 NMR spectrometer">
+          <span class="image-letter">C</span>
+        </a>
+        <a class="image-box image-d" href="d.html" aria-label="Open Tactile Volume Mixer portfolio page">
+          <img src="images/tactile-volume-mixer.png" alt="Tactile volume mixer">
+          <span class="image-letter">D</span>
+        </a>
+        <a class="image-box image-e" href="e.html" aria-label="Open OhmniCare Autonomous Telehealth Robot portfolio page">
+          <img src="images/ohmnicare.png" alt="OhmniCare telehealth robot connecting a clinician and patient">
+          <span class="image-letter">E</span>
+        </a>
+        <a class="image-box image-f" href="f.html" aria-label="Open 1984 3Rensho SRL Restoration portfolio page">
+          <img src="images/3rensho.png" alt="Restored red 1984 3Rensho SRL bicycle">
+          <span class="image-letter">F</span>
+        </a>
+        <a class="image-box image-g" href="g.html" aria-label="Open TuriTap: Handpump Adaptation in Kenya portfolio page">
+          <img src="images/turitap.png" alt="TuriTap device adapted to a handpump in Kenya">
+          <span class="image-letter">G</span>
+        </a>
       </section>
 
       <section class="contents" aria-label="Stories">
         <a class="entry" href="a.html">
           <span class="card-no">A</span>
           <div class="meta">
-            <h2>Lorem Ipsum Dolor</h2>
+            <h2>OhmniClean Medical Disinfection Robot</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar lectus at magna scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="b.html">
           <span class="card-no">B</span>
           <div class="meta">
-            <h2>Adipiscing Elit Nulla</h2>
+            <h2>BahaWatch - Low-Cost Distributed Flood Monitoring for Philippine Communities</h2>
             <p>Curabitur volutpat, lacus et luctus blandit, augue turpis posuere tortor, non tristique nisi odio et eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="c.html">
           <span class="card-no">C</span>
           <div class="meta">
-            <h2>Fusce Vitae Auctor</h2>
+            <h2>Nanalysis 100MHz NMR Spectrometer</h2>
             <p>Phasellus a massa nec tellus volutpat fermentum. Vestibulum scelerisque velit vel tristique finibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="d.html">
           <span class="card-no">D</span>
           <div class="meta">
-            <h2>Morbi Cursus Sem</h2>
+            <h2>Tactile Volume Mixer</h2>
             <p>Vivamus fringilla turpis sed libero aliquet, ac pretium lorem accumsan. Sed feugiat enim vel dui volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="e.html">
           <span class="card-no">E</span>
           <div class="meta">
-            <h2>Vestibulum Ante Ipsum</h2>
-            <p>Donec aliquet posuere diam, ut cursus risus dictum ut. Maecenas feugiat dui sed justo feugiat, eget viverra sem mattis. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h2>OhmniCare Autonomous Telehealth Robot</h2>
+            <p>Aliquam erat volutpat. Etiam sed vulputate nunc, quis consectetur nisl. Aenean luctus augue non felis accumsan. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="f.html">
           <span class="card-no">F</span>
           <div class="meta">
-            <h2>Velit Quis Felis</h2>
-            <p>Aliquam erat volutpat. Etiam sed vulputate nunc, quis consectetur nisl. Aenean luctus augue non felis accumsan. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <h2>1984 3Rensho SRL Restoration</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar lectus at magna scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="g.html">
           <span class="card-no">G</span>
           <div class="meta">
-            <h2>Nam Feugiat Maximus</h2>
+            <h2>TuriTap: Handpump Adaptation in Kenya</h2>
             <p>Quisque ut dapibus nisi. Cras ultricies magna eget massa malesuada, sit amet suscipit mi faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
       </section>
     </main>
   </div>
+  <script>
+    const imageTiles = document.querySelectorAll(".image-box:has(img)");
+
+    function updateExpandedImageSize(tile) {
+      const image = tile.querySelector("img");
+      const tileBounds = tile.getBoundingClientRect();
+
+      if (!image.naturalWidth || !tileBounds.width || !tileBounds.height) {
+        return;
+      }
+
+      const scale = Math.max(
+        tileBounds.width / image.naturalWidth,
+        tileBounds.height / image.naturalHeight
+      );
+
+      tile.style.setProperty("--expanded-image-width", `${image.naturalWidth * scale}px`);
+      tile.style.setProperty("--expanded-image-height", `${image.naturalHeight * scale}px`);
+    }
+
+    imageTiles.forEach((tile) => {
+      const update = () => updateExpandedImageSize(tile);
+
+      tile.addEventListener("pointerenter", update);
+      tile.addEventListener("focus", update);
+      tile.querySelector("img").addEventListener("load", update);
+      new ResizeObserver(update).observe(tile);
+      update();
+    });
+
+    document.querySelectorAll(".entry").forEach((entry) => {
+      const tile = document.querySelector(`.image-box[href="${entry.getAttribute("href")}"]`);
+
+      if (!tile) {
+        return;
+      }
+
+      const update = () => updateExpandedImageSize(tile);
+
+      entry.addEventListener("pointerenter", update);
+      entry.addEventListener("focus", update);
+    });
+  </script>
 </body>
 </html>
