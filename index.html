@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Title</title>
+  <title>Noam Anglo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
       color-scheme: light;
-      --paper: #efeedf;
+      --paper: #ecf0f3;
       --ink: #1a1917;
       --muted: #4e4a44;
       --line: rgba(22, 20, 18, 0.34);
@@ -35,32 +35,10 @@
       padding: 32px 28px 48px;
     }
 
-    .page::after {
-      position: fixed;
-      inset: 0;
-      z-index: 2;
-      background: rgba(0, 0, 0, 0.45);
-      content: "";
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 180ms ease;
-    }
-
-    .page:has(.image-box:hover)::after,
-    .page:has(.image-box:focus-visible)::after,
-    .page:has(.entry:hover)::after {
-      opacity: 1;
-    }
-
     .page:has(.image-box:hover) .contents,
     .page:has(.image-box:focus-visible) .contents {
       position: relative;
       z-index: 3;
-    }
-
-    .page:has(.image-box:hover) .entry,
-    .page:has(.image-box:focus-visible) .entry {
-      opacity: 0.4;
     }
 
     .page:has(.image-a:hover) .entry[href="a.html"],
@@ -107,8 +85,9 @@
 
     .image-grid {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
-      grid-auto-rows: clamp(150px, 19vw, 205px);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-rows: repeat(4, minmax(0, 1fr));
+      aspect-ratio: 1;
       gap: 7px;
       margin-top: 18px;
     }
@@ -149,18 +128,7 @@
     .page:has(.entry[href="e.html"]:focus-visible) .image-e,
     .page:has(.entry[href="f.html"]:focus-visible) .image-f,
     .page:has(.entry[href="g.html"]:focus-visible) .image-g {
-      z-index: 3;
-      overflow: visible;
-    }
-
-    .page:has(.entry[href="a.html"]:hover) .image-a::before,
-    .page:has(.entry[href="b.html"]:hover) .image-b::before,
-    .page:has(.entry[href="c.html"]:hover) .image-c::before,
-    .page:has(.entry[href="d.html"]:hover) .image-d::before,
-    .page:has(.entry[href="e.html"]:hover) .image-e::before,
-    .page:has(.entry[href="f.html"]:hover) .image-f::before,
-    .page:has(.entry[href="g.html"]:hover) .image-g::before {
-      opacity: 0;
+      z-index: 4;
     }
 
     .image-box img {
@@ -172,48 +140,39 @@
       object-fit: cover;
     }
 
-    .image-box:hover img,
-    .image-box:focus-visible img,
-    .page:has(.entry[href="a.html"]:hover) .image-a img,
-    .page:has(.entry[href="b.html"]:hover) .image-b img,
-    .page:has(.entry[href="c.html"]:hover) .image-c img,
-    .page:has(.entry[href="d.html"]:hover) .image-d img,
-    .page:has(.entry[href="e.html"]:hover) .image-e img,
-    .page:has(.entry[href="f.html"]:hover) .image-f img,
-    .page:has(.entry[href="g.html"]:hover) .image-g img,
-    .page:has(.entry[href="a.html"]:focus-visible) .image-a img,
-    .page:has(.entry[href="b.html"]:focus-visible) .image-b img,
-    .page:has(.entry[href="c.html"]:focus-visible) .image-c img,
-    .page:has(.entry[href="d.html"]:focus-visible) .image-d img,
-    .page:has(.entry[href="e.html"]:focus-visible) .image-e img,
-    .page:has(.entry[href="f.html"]:focus-visible) .image-f img,
-    .page:has(.entry[href="g.html"]:focus-visible) .image-g img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      right: auto;
-      bottom: auto;
-      width: var(--expanded-image-width);
-      height: var(--expanded-image-height);
-      max-width: none;
+    .image-b img {
+      object-position: center 35%;
+    }
+
+    .image-c img {
       object-fit: contain;
-      transform: translate(-50%, -50%) scale(1.2);
+    }
+
+    .image-e img {
+      transform: scale(1.2);
     }
 
     .image-box::before {
       position: absolute;
       inset: 0;
       z-index: 1;
-      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.03) 40%, rgba(0, 0, 0, 0.42) 100%);
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.4) 100%);
       content: "";
-      opacity: 1;
+      opacity: 0;
       transition: opacity 180ms ease;
       pointer-events: none;
     }
 
     .image-box:hover::before,
-    .image-box:focus-visible::before {
-      opacity: 0;
+    .image-box:focus-visible::before,
+    .page:has(.entry[href="a.html"]:is(:hover, :focus-visible)) .image-a::before,
+    .page:has(.entry[href="b.html"]:is(:hover, :focus-visible)) .image-b::before,
+    .page:has(.entry[href="c.html"]:is(:hover, :focus-visible)) .image-c::before,
+    .page:has(.entry[href="d.html"]:is(:hover, :focus-visible)) .image-d::before,
+    .page:has(.entry[href="e.html"]:is(:hover, :focus-visible)) .image-e::before,
+    .page:has(.entry[href="f.html"]:is(:hover, :focus-visible)) .image-f::before,
+    .page:has(.entry[href="g.html"]:is(:hover, :focus-visible)) .image-g::before {
+      opacity: 1;
     }
 
     .image-letter {
@@ -221,6 +180,8 @@
       right: 10px;
       bottom: 10px;
       z-index: 2;
+      font-size: 0.7em;
+      font-family: "Open Sans", sans-serif;
     }
 
     .image-box:focus-visible,
@@ -235,33 +196,48 @@
     }
 
     .image-b {
-      grid-column: 3;
-      grid-row: 1;
+      grid-column: 1 / span 2;
+      grid-row: 2;
     }
 
     .image-c {
-      grid-column: 4;
-      grid-row: 1;
+      grid-column: 2;
+      grid-row: 4;
     }
 
     .image-d {
-      grid-column: 5;
-      grid-row: 1 / span 2;
+      grid-column: 1;
+      grid-row: 4;
     }
 
     .image-e {
-      grid-column: 1;
-      grid-row: 2;
+      grid-column: 3 / span 2;
+      grid-row: 1;
     }
 
     .image-f {
-      grid-column: 2 / span 2;
-      grid-row: 2;
+      grid-column: 1 / span 2;
+      grid-row: 3;
     }
 
     .image-g {
-      grid-column: 4;
+      grid-column: 3 / span 2;
+      grid-row: 3;
+    }
+
+    .image-h {
+      grid-column: 3 / span 2;
       grid-row: 2;
+    }
+
+    .image-i {
+      grid-column: 3;
+      grid-row: 4;
+    }
+
+    .image-j {
+      grid-column: 4;
+      grid-row: 4;
     }
 
     .contents {
@@ -338,29 +314,32 @@
 
       .image-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: none;
         grid-auto-rows: clamp(130px, 35vw, 180px);
+        aspect-ratio: auto;
       }
 
       .image-a,
       .image-b,
-      .image-c,
-      .image-d,
       .image-e,
       .image-f,
-      .image-g {
+      .image-g,
+      .image-h {
+        grid-column: 1 / span 2;
+        grid-row: auto;
+      }
+
+      .image-c,
+      .image-d,
+      .image-i,
+      .image-j {
         grid-column: auto;
         grid-row: auto;
       }
     }
 
     @media (hover: none) {
-      .page:has(.image-box:hover)::after,
-      .page:has(.entry:hover)::after {
-        opacity: 0 !important;
-      }
-
       .page:has(.image-box:hover) .entry {
-        opacity: 1 !important;
         background: transparent !important;
       }
 
@@ -380,21 +359,9 @@
         overflow: hidden !important;
       }
 
-      .image-box:hover img,
-      .page:has(.entry:hover) .image-box img {
-        top: 0 !important;
-        left: 0 !important;
-        right: auto !important;
-        bottom: auto !important;
-        width: 100% !important;
-        height: 100% !important;
-        transform: none !important;
-        object-fit: cover !important;
-      }
-
       .image-box:hover::before,
       .page:has(.entry:hover) .image-box::before {
-        opacity: 1 !important;
+        opacity: 0 !important;
       }
     }
   </style>
@@ -412,30 +379,40 @@
           <img src="images/ohmniclean.png" alt="OhmniClean UV-C disinfection robot">
           <span class="image-letter">A</span>
         </a>
-        <a class="image-box image-b" href="b.html" aria-label="Open BahaWatch portfolio page">
-          <img src="images/bahawatch.png" alt="BahaWatch water-level monitor installed beside a stream">
-          <span class="image-letter">B</span>
-        </a>
-        <a class="image-box image-c" href="c.html" aria-label="Open Nanalysis 100MHz NMR Spectrometer portfolio page">
-          <img src="images/nanalysis-nmr.png" alt="Nanalysis 60 NMR spectrometer">
-          <span class="image-letter">C</span>
-        </a>
-        <a class="image-box image-d" href="d.html" aria-label="Open Tactile Volume Mixer portfolio page">
-          <img src="images/tactile-volume-mixer.png" alt="Tactile volume mixer">
-          <span class="image-letter">D</span>
-        </a>
         <a class="image-box image-e" href="e.html" aria-label="Open OhmniCare Autonomous Telehealth Robot portfolio page">
           <img src="images/ohmnicare.png" alt="OhmniCare telehealth robot connecting a clinician and patient">
-          <span class="image-letter">E</span>
+          <span class="image-letter">B</span>
         </a>
+        <a class="image-box image-b" href="b.html" aria-label="Open BahaWatch portfolio page">
+          <img src="images/bahawatch.png" alt="BahaWatch water-level monitor installed beside a stream">
+          <span class="image-letter">C</span>
+        </a>
+        <div class="image-box image-h" role="img" aria-label="When the Waters Rise">
+          <img src="images/when-the-waters-rise.png" alt="Panel discussion about flooding and disaster response, with a flood map projected behind the speakers">
+          <span class="image-letter">D</span>
+        </div>
         <a class="image-box image-f" href="f.html" aria-label="Open 1984 3Rensho SRL Restoration portfolio page">
           <img src="images/3rensho.png" alt="Restored red 1984 3Rensho SRL bicycle">
-          <span class="image-letter">F</span>
+          <span class="image-letter">E</span>
         </a>
         <a class="image-box image-g" href="g.html" aria-label="Open TuriTap: Handpump Adaptation in Kenya portfolio page">
           <img src="images/turitap.png" alt="TuriTap device adapted to a handpump in Kenya">
+          <span class="image-letter">F</span>
+        </a>
+        <a class="image-box image-d" href="d.html" aria-label="Open Tactile Volume Mixer portfolio page">
+          <img src="images/tactile-volume-mixer.png" alt="Tactile volume mixer">
           <span class="image-letter">G</span>
         </a>
+        <a class="image-box image-c" href="c.html" aria-label="Open Nanalysis 100MHz NMR Spectrometer portfolio page">
+          <img src="images/nanalysis-nmr.png" alt="Nanalysis 60 NMR spectrometer">
+          <span class="image-letter">H</span>
+        </a>
+        <div class="image-box image-i" role="img" aria-label="Placeholder I">
+          <span class="image-letter">I</span>
+        </div>
+        <div class="image-box image-j" role="img" aria-label="Placeholder J">
+          <span class="image-letter">J</span>
+        </div>
       </section>
 
       <section class="contents" aria-label="Stories">
@@ -443,96 +420,59 @@
           <span class="card-no">A</span>
           <div class="meta">
             <h2>OhmniClean Medical Disinfection Robot</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar lectus at magna scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </a>
-        <a class="entry" href="b.html">
-          <span class="card-no">B</span>
-          <div class="meta">
-            <h2>BahaWatch - Low-Cost Distributed Flood Monitoring for Philippine Communities</h2>
-            <p>Curabitur volutpat, lacus et luctus blandit, augue turpis posuere tortor, non tristique nisi odio et eros. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </a>
-        <a class="entry" href="c.html">
-          <span class="card-no">C</span>
-          <div class="meta">
-            <h2>Nanalysis 100MHz NMR Spectrometer</h2>
-            <p>Phasellus a massa nec tellus volutpat fermentum. Vestibulum scelerisque velit vel tristique finibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </a>
-        <a class="entry" href="d.html">
-          <span class="card-no">D</span>
-          <div class="meta">
-            <h2>Tactile Volume Mixer</h2>
-            <p>Vivamus fringilla turpis sed libero aliquet, ac pretium lorem accumsan. Sed feugiat enim vel dui volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>The fastest, most advanced, most user-friendly room ultraviolet disinfection solution. OhmniClean uses robot autonomy to ensure that no spot is left unclean, no time is wasted, and no humans risk accidental exposure to UV-C.</p>
           </div>
         </a>
         <a class="entry" href="e.html">
-          <span class="card-no">E</span>
+          <span class="card-no">B</span>
           <div class="meta">
             <h2>OhmniCare Autonomous Telehealth Robot</h2>
-            <p>Aliquam erat volutpat. Etiam sed vulputate nunc, quis consectetur nisl. Aenean luctus augue non felis accumsan. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p>Robots connecting patients to the doctors they need. OhmniCare acts as a physical presence for remote doctors around the US to instantly visit patients in hospitals, without onsite staff assistance or expensive in-room installations.</p>
           </div>
         </a>
+        <a class="entry" href="b.html">
+          <span class="card-no">C</span>
+          <div class="meta">
+            <h2>BahaWatch - Low-Cost Distributed Flood Monitoring for Philippine Communities</h2>
+            <p>Low-cost, open-source, locally-operated flood sensing for Philippine communities (and beyond). Philippines ranks #1 globally in disaster risk, intensified by climate change. BahaWatch brings gold-standard disaster monitoring where it’s needed the most.</p>
+          </div>
+        </a>
+        <article class="entry" aria-label="When the Waters Rise">
+          <span class="card-no">D</span>
+          <div class="meta">
+            <h2>When the Waters Rise</h2>
+          </div>
+        </article>
         <a class="entry" href="f.html">
-          <span class="card-no">F</span>
+          <span class="card-no">E</span>
           <div class="meta">
             <h2>1984 3Rensho SRL Restoration</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pulvinar lectus at magna scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
         <a class="entry" href="g.html">
-          <span class="card-no">G</span>
+          <span class="card-no">F</span>
           <div class="meta">
             <h2>TuriTap: Handpump Adaptation in Kenya</h2>
             <p>Quisque ut dapibus nisi. Cras ultricies magna eget massa malesuada, sit amet suscipit mi faucibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
+        <a class="entry" href="d.html">
+          <span class="card-no">G</span>
+          <div class="meta">
+            <h2>Tactile Volume Mixer</h2>
+            <p>Vivamus fringilla turpis sed libero aliquet, ac pretium lorem accumsan. Sed feugiat enim vel dui volutpat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </a>
+        <a class="entry" href="c.html">
+          <span class="card-no">H</span>
+          <div class="meta">
+            <h2>Nanalysis 100MHz NMR Spectrometer</h2>
+            <p>Phasellus a massa nec tellus volutpat fermentum. Vestibulum scelerisque velit vel tristique finibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+          </div>
+        </a>
       </section>
     </main>
   </div>
-  <script>
-    const imageTiles = document.querySelectorAll(".image-box:has(img)");
-
-    function updateExpandedImageSize(tile) {
-      const image = tile.querySelector("img");
-      const tileBounds = tile.getBoundingClientRect();
-
-      if (!image.naturalWidth || !tileBounds.width || !tileBounds.height) {
-        return;
-      }
-
-      const scale = Math.max(
-        tileBounds.width / image.naturalWidth,
-        tileBounds.height / image.naturalHeight
-      );
-
-      tile.style.setProperty("--expanded-image-width", `${image.naturalWidth * scale}px`);
-      tile.style.setProperty("--expanded-image-height", `${image.naturalHeight * scale}px`);
-    }
-
-    imageTiles.forEach((tile) => {
-      const update = () => updateExpandedImageSize(tile);
-
-      tile.addEventListener("pointerenter", update);
-      tile.addEventListener("focus", update);
-      tile.querySelector("img").addEventListener("load", update);
-      new ResizeObserver(update).observe(tile);
-      update();
-    });
-
-    document.querySelectorAll(".entry").forEach((entry) => {
-      const tile = document.querySelector(`.image-box[href="${entry.getAttribute("href")}"]`);
-
-      if (!tile) {
-        return;
-      }
-
-      const update = () => updateExpandedImageSize(tile);
-
-      entry.addEventListener("pointerenter", update);
-      entry.addEventListener("focus", update);
-    });
-  </script>
 </body>
 </html>
