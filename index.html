@@ -84,6 +84,7 @@
     }
 
     .image-grid {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       grid-template-rows: repeat(4, minmax(0, 1fr));
@@ -110,6 +111,97 @@
       overflow: hidden;
       text-decoration: none;
       transition: background-color 180ms ease;
+    }
+
+    button.image-box {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .image-box[hidden] {
+      display: none;
+    }
+
+    .image-details {
+      position: absolute;
+      z-index: 5;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      overflow: auto;
+      background: var(--paper);
+      color: var(--ink);
+      letter-spacing: normal;
+      text-align: left;
+      text-transform: none;
+    }
+
+    .image-details[data-direction="left"] {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .image-details-copy {
+      width: 100%;
+    }
+
+    .image-details h2,
+    .image-details p {
+      margin: 0;
+    }
+
+    .image-details h2 {
+      font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+      line-height: 1.2;
+      font-family: "Open Sans", sans-serif;
+    }
+
+    .image-details p {
+      font-size: clamp(0.93312rem, 1.296vw, 1.06272rem);
+      line-height: 1.4;
+      font-weight: 400;
+      font-family: Georgia, serif;
+    }
+
+    .project-link {
+      position: relative;
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0.66em 1.02em;
+      background: #f2c94c;
+      color: var(--ink);
+      font: 700 0.864rem/1.2 "Open Sans", sans-serif;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .project-link::before {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 78%);
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 180ms ease;
+    }
+
+    .project-link:hover::before,
+    .project-link:focus-visible::before {
+      opacity: 1;
+    }
+
+    .project-link:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 3px;
+    }
+
+    .project-link span {
+      position: relative;
+      z-index: 1;
     }
 
     .image-box:has(img):hover,
@@ -301,7 +393,7 @@
     .meta p {
       display: inline;
       margin: 0;
-      font-size: 0.82rem;
+      font-size: 1.06272rem;
       line-height: 1.4;
       color: var(--muted);
       font-family: Georgia, serif;
@@ -336,6 +428,7 @@
         grid-column: auto;
         grid-row: auto;
       }
+
     }
 
     @media (hover: none) {
@@ -375,44 +468,44 @@
 
     <main aria-label="Table of contents">
       <section class="image-grid" aria-label="Image placeholders">
-        <a class="image-box image-a" href="a.html" aria-label="Open OhmniClean Medical Disinfection Robot portfolio page">
+        <button class="image-box image-a" type="button" data-letter="A" aria-label="Show details for OhmniClean Medical Disinfection Robot" aria-expanded="false">
           <img src="images/ohmniclean.png" alt="OhmniClean UV-C disinfection robot">
           <span class="image-letter">A</span>
-        </a>
-        <a class="image-box image-e" href="e.html" aria-label="Open OhmniCare Autonomous Telehealth Robot portfolio page">
+        </button>
+        <button class="image-box image-e" type="button" data-letter="B" aria-label="Show details for OhmniCare Autonomous Telehealth Robot" aria-expanded="false">
           <img src="images/ohmnicare.png" alt="OhmniCare telehealth robot connecting a clinician and patient">
           <span class="image-letter">B</span>
-        </a>
-        <a class="image-box image-b" href="b.html" aria-label="Open BahaWatch portfolio page">
+        </button>
+        <button class="image-box image-b" type="button" data-letter="C" aria-label="Show details for BahaWatch" aria-expanded="false">
           <img src="images/bahawatch.png" alt="BahaWatch water-level monitor installed beside a stream">
           <span class="image-letter">C</span>
-        </a>
-        <div class="image-box image-h" role="img" aria-label="When the Waters Rise">
+        </button>
+        <button class="image-box image-h" type="button" data-letter="D" aria-label="Show details for When the Waters Rise" aria-expanded="false">
           <img src="images/when-the-waters-rise.png" alt="Panel discussion about flooding and disaster response, with a flood map projected behind the speakers">
           <span class="image-letter">D</span>
-        </div>
-        <a class="image-box image-f" href="f.html" aria-label="Open 1984 3Rensho SRL Restoration portfolio page">
+        </button>
+        <button class="image-box image-f" type="button" data-letter="E" aria-label="Show details for 1984 3Rensho SRL Restoration" aria-expanded="false">
           <img src="images/3rensho.png" alt="Restored red 1984 3Rensho SRL bicycle">
           <span class="image-letter">E</span>
-        </a>
-        <a class="image-box image-g" href="g.html" aria-label="Open TuriTap: Handpump Adaptation in Kenya portfolio page">
+        </button>
+        <button class="image-box image-g" type="button" data-letter="F" aria-label="Show details for TuriTap: Handpump Adaptation in Kenya" aria-expanded="false">
           <img src="images/turitap.png" alt="TuriTap device adapted to a handpump in Kenya">
           <span class="image-letter">F</span>
-        </a>
-        <a class="image-box image-d" href="d.html" aria-label="Open Tactile Volume Mixer portfolio page">
+        </button>
+        <button class="image-box image-d" type="button" data-letter="G" aria-label="Show details for Tactile Volume Mixer" aria-expanded="false">
           <img src="images/tactile-volume-mixer.png" alt="Tactile volume mixer">
           <span class="image-letter">G</span>
-        </a>
-        <a class="image-box image-c" href="c.html" aria-label="Open Nanalysis 100MHz NMR Spectrometer portfolio page">
+        </button>
+        <button class="image-box image-c" type="button" data-letter="H" aria-label="Show details for Nanalysis 100MHz NMR Spectrometer" aria-expanded="false">
           <img src="images/nanalysis-nmr.png" alt="Nanalysis 60 NMR spectrometer">
           <span class="image-letter">H</span>
-        </a>
-        <div class="image-box image-i" role="img" aria-label="Placeholder I">
+        </button>
+        <button class="image-box image-i" type="button" data-letter="I" data-title="Placeholder I" aria-label="Show details for Placeholder I" aria-expanded="false">
           <span class="image-letter">I</span>
-        </div>
-        <div class="image-box image-j" role="img" aria-label="Placeholder J">
+        </button>
+        <button class="image-box image-j" type="button" data-letter="J" data-title="Placeholder J" aria-label="Show details for Placeholder J" aria-expanded="false">
           <span class="image-letter">J</span>
-        </div>
+        </button>
       </section>
 
       <section class="contents" aria-label="Stories">
@@ -471,8 +564,184 @@
             <p>Phasellus a massa nec tellus volutpat fermentum. Vestibulum scelerisque velit vel tristique finibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
           </div>
         </a>
+        <a class="entry" href="i.html">
+          <span class="card-no">I</span>
+          <div class="meta">
+            <h2>Placeholder I</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla turpis sed libero aliquet, ac pretium lorem accumsan.</p>
+          </div>
+        </a>
+        <a class="entry" href="j.html">
+          <span class="card-no">J</span>
+          <div class="meta">
+            <h2>Placeholder J</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus nisi, sed feugiat enim vel dui volutpat.</p>
+          </div>
+        </a>
       </section>
     </main>
   </div>
+  <script>
+    const imageGrid = document.querySelector(".image-grid");
+    const imageTiles = Array.from(imageGrid.querySelectorAll(".image-box[data-letter]"));
+    const detailsByLetter = new Map(
+      Array.from(document.querySelectorAll(".contents .entry")).map((entry) => {
+        const letter = entry.querySelector(".card-no").textContent.trim();
+        return [letter, {
+          title: entry.querySelector("h2").textContent.trim(),
+          description: entry.querySelector("p")?.textContent.trim() || "",
+          link: entry.getAttribute("href")
+        }];
+      })
+    );
+    const replacedTiles = {
+      A: ["B"],
+      B: ["A"],
+      C: ["D"],
+      D: ["C"],
+      E: ["F"],
+      F: ["E"],
+      G: ["H", "I"],
+      H: ["I", "J"],
+      I: ["G", "H"],
+      J: ["H", "I"]
+    };
+    let activeTile = null;
+    let detailsPanel = null;
+    let activeTargets = [];
+
+    function closeDetails() {
+      if (!activeTile) return;
+
+      activeTile.setAttribute("aria-expanded", "false");
+      activeTile.style.zIndex = "";
+      detailsPanel.remove();
+      activeTargets.forEach((tile) => {
+        tile.hidden = false;
+        tile.style.pointerEvents = "";
+      });
+      activeTile = null;
+      detailsPanel = null;
+      activeTargets = [];
+    }
+
+    imageTiles.forEach((tile) => {
+      tile.addEventListener("click", () => {
+        if (activeTile === tile) {
+          closeDetails();
+          return;
+        }
+
+        closeDetails();
+        const letter = tile.dataset.letter;
+        const targetLetters = replacedTiles[letter];
+        const targetTiles = targetLetters.map((target) =>
+          imageTiles.find((imageTile) => imageTile.dataset.letter === target)
+        );
+        const details = detailsByLetter.get(letter) || {
+          title: tile.dataset.title,
+          description: "",
+          link: tile.dataset.href || null
+        };
+        const gridRect = imageGrid.getBoundingClientRect();
+        const sourceRect = tile.getBoundingClientRect();
+        const targetRect = targetTiles.reduce((bounds, targetTile) => {
+          const rect = targetTile.getBoundingClientRect();
+          return {
+            left: Math.min(bounds.left, rect.left),
+            top: Math.min(bounds.top, rect.top),
+            right: Math.max(bounds.right, rect.right),
+            bottom: Math.max(bounds.bottom, rect.bottom)
+          };
+        }, {
+          left: Infinity,
+          top: Infinity,
+          right: -Infinity,
+          bottom: -Infinity
+        });
+        const panel = document.createElement("div");
+        panel.className = "image-box image-details";
+        panel.dataset.target = targetLetters.join("");
+        panel.dataset.direction = targetRect.left < sourceRect.left ? "left" : "right";
+        panel.setAttribute("role", "group");
+        panel.setAttribute("aria-label", `Details for ${details.title}`);
+
+        const copy = document.createElement("div");
+        copy.className = "image-details-copy";
+        const title = document.createElement("h2");
+        title.textContent = details.title;
+        copy.append(title);
+        if (details.description) {
+          const description = document.createElement("p");
+          description.textContent = details.description;
+          copy.append(description);
+        }
+        panel.append(copy);
+        if (details.link) {
+          const projectLink = document.createElement("a");
+          projectLink.className = "project-link";
+          projectLink.href = details.link;
+          const label = document.createElement("span");
+          label.textContent = "See this project";
+          projectLink.append(label);
+          panel.append(projectLink);
+        }
+
+        targetTiles[0].before(panel);
+        targetTiles.forEach((targetTile) => {
+          targetTile.style.pointerEvents = "none";
+        });
+        tile.style.zIndex = "6";
+        activeTile = tile;
+        detailsPanel = panel;
+        activeTargets = targetTiles;
+        tile.setAttribute("aria-expanded", "true");
+        const sourceLeft = sourceRect.left - gridRect.left;
+        const sourceTop = sourceRect.top - gridRect.top;
+        const targetLeft = targetRect.left - gridRect.left;
+        const targetTop = targetRect.top - gridRect.top;
+        panel.style.left = `${targetLeft}px`;
+        panel.style.top = `${targetTop}px`;
+        panel.style.width = `${targetRect.right - targetRect.left}px`;
+        panel.style.height = `${targetRect.bottom - targetRect.top}px`;
+        const reveal = panel.animate([
+          {
+            left: `${sourceLeft}px`,
+            top: `${sourceTop}px`,
+            width: `${sourceRect.width}px`,
+            height: `${sourceRect.height}px`
+          },
+          {
+            left: `${targetLeft}px`,
+            top: `${targetTop}px`,
+            width: `${targetRect.right - targetRect.left}px`,
+            height: `${targetRect.bottom - targetRect.top}px`
+          }
+        ], {
+          duration: 520,
+          easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
+          fill: "forwards"
+        });
+        reveal.onfinish = () => {
+          if (detailsPanel === panel) {
+            targetTiles.forEach((targetTile) => {
+              targetTile.hidden = true;
+              targetTile.style.pointerEvents = "";
+            });
+          }
+        };
+      });
+    });
+
+    function closeOnEscape(event) {
+      if (event.key === "Escape" && activeTile) {
+        const trigger = activeTile;
+        closeDetails();
+        trigger.focus();
+      }
+    }
+
+    document.addEventListener("keydown", closeOnEscape);
+  </script>
 </body>
 </html>
