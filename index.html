@@ -56,7 +56,18 @@
     .page:has(.image-f:focus-visible) .entry[href="f.html"],
     .page:has(.image-g:focus-visible) .entry[href="g.html"] {
       opacity: 1;
-      background: #fff;
+    }
+
+    .page:has(.image-a:is(:hover, :focus-visible)) .entry[href="a.html"] .meta h2,
+    .page:has(.image-b:is(:hover, :focus-visible)) .entry[href="b.html"] .meta h2,
+    .page:has(.image-c:is(:hover, :focus-visible)) .entry[href="c.html"] .meta h2,
+    .page:has(.image-d:is(:hover, :focus-visible)) .entry[href="d.html"] .meta h2,
+    .page:has(.image-e:is(:hover, :focus-visible)) .entry[href="e.html"] .meta h2,
+    .page:has(.image-f:is(:hover, :focus-visible)) .entry[href="f.html"] .meta h2,
+    .page:has(.image-g:is(:hover, :focus-visible)) .entry[href="g.html"] .meta h2,
+    .entry:is(:hover, :focus-visible) .meta h2 {
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
     }
 
     .masthead {
@@ -66,21 +77,11 @@
 
     h1 {
       margin: 0;
-      font-size: clamp(3.2rem, 5vw, 7rem);
+      font-size: clamp(2.56rem, 4vw, 5.6rem);
       line-height: 0.8;
       font-weight: 700;
       letter-spacing: -0.06em;
-      text-transform: uppercase;
       font-family: Georgia, serif;
-    }
-
-    .subheader {
-      margin-top: 14px;
-      font-size: 1.5rem;
-      letter-spacing: 0.10rem;
-      text-transform: uppercase;
-      color: var(--muted);
-      font-weight: 300;
     }
 
     .image-grid {
@@ -129,7 +130,7 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 12px;
-      overflow: auto;
+      overflow: hidden;
       background: var(--paper);
       color: var(--ink);
       letter-spacing: normal;
@@ -140,6 +141,15 @@
     .image-details[data-direction="left"] {
       align-items: flex-end;
       text-align: right;
+    }
+
+    .image-details-content {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      align-self: flex-start;
+      justify-content: space-between;
+      height: 100%;
     }
 
     .image-details-copy {
@@ -158,50 +168,40 @@
     }
 
     .image-details p {
-      font-size: clamp(0.93312rem, 1.296vw, 1.06272rem);
+      font-size: clamp(0.72rem, 1vw, 0.82rem);
       line-height: 1.4;
       font-weight: 400;
       font-family: Georgia, serif;
     }
 
     .project-link {
-      position: relative;
       display: inline-flex;
       flex: 0 0 auto;
+      align-self: flex-start;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
       padding: 0.66em 1.02em;
       background: #f2c94c;
       color: var(--ink);
       font: 700 0.864rem/1.2 "Open Sans", sans-serif;
       text-decoration: none;
       text-transform: uppercase;
+      transform: scale(1);
+      transform-origin: center;
     }
 
-    .project-link::before {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 78%);
-      content: "";
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 180ms ease;
+    .image-details[data-direction="left"] .project-link {
+      align-self: flex-end;
     }
 
-    .project-link:hover::before,
-    .project-link:focus-visible::before {
-      opacity: 1;
+    .project-link:hover,
+    .project-link:focus-visible {
+      transform: scale(1.05);
     }
 
     .project-link:focus-visible {
       outline: 2px solid var(--ink);
       outline-offset: 3px;
-    }
-
-    .project-link span {
-      position: relative;
-      z-index: 1;
     }
 
     .image-box:has(img):hover,
@@ -224,12 +224,15 @@
     }
 
     .image-box img {
+      --base-image-scale: 1;
+      --hover-image-scale: 1;
       position: absolute;
       inset: 0;
       z-index: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(var(--base-image-scale)) scale(var(--hover-image-scale));
     }
 
     .image-b img {
@@ -241,30 +244,18 @@
     }
 
     .image-e img {
-      transform: scale(1.2);
+      --base-image-scale: 1.2;
     }
 
-    .image-box::before {
-      position: absolute;
-      inset: 0;
-      z-index: 1;
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.4) 100%);
-      content: "";
-      opacity: 0;
-      transition: opacity 180ms ease;
-      pointer-events: none;
-    }
-
-    .image-box:hover::before,
-    .image-box:focus-visible::before,
-    .page:has(.entry[href="a.html"]:is(:hover, :focus-visible)) .image-a::before,
-    .page:has(.entry[href="b.html"]:is(:hover, :focus-visible)) .image-b::before,
-    .page:has(.entry[href="c.html"]:is(:hover, :focus-visible)) .image-c::before,
-    .page:has(.entry[href="d.html"]:is(:hover, :focus-visible)) .image-d::before,
-    .page:has(.entry[href="e.html"]:is(:hover, :focus-visible)) .image-e::before,
-    .page:has(.entry[href="f.html"]:is(:hover, :focus-visible)) .image-f::before,
-    .page:has(.entry[href="g.html"]:is(:hover, :focus-visible)) .image-g::before {
-      opacity: 1;
+    .image-box:has(img):is(:hover, :focus-visible) img,
+    .page:has(.entry[href="a.html"]:is(:hover, :focus-visible)) .image-a img,
+    .page:has(.entry[href="b.html"]:is(:hover, :focus-visible)) .image-b img,
+    .page:has(.entry[href="c.html"]:is(:hover, :focus-visible)) .image-c img,
+    .page:has(.entry[href="d.html"]:is(:hover, :focus-visible)) .image-d img,
+    .page:has(.entry[href="e.html"]:is(:hover, :focus-visible)) .image-e img,
+    .page:has(.entry[href="f.html"]:is(:hover, :focus-visible)) .image-f img,
+    .page:has(.entry[href="g.html"]:is(:hover, :focus-visible)) .image-g img {
+      --hover-image-scale: 1.05;
     }
 
     .image-letter {
@@ -346,12 +337,6 @@
       align-items: start;
       color: inherit;
       text-decoration: none;
-      transition: background-color 140ms ease;
-    }
-
-    .entry:hover,
-    .entry:focus-visible {
-      background: #fff;
     }
 
     .entry:focus-visible,
@@ -393,10 +378,69 @@
     .meta p {
       display: inline;
       margin: 0;
-      font-size: 1.06272rem;
+      font-size: 0.82rem;
       line-height: 1.4;
       color: var(--muted);
       font-family: Georgia, serif;
+    }
+
+    .site-footer {
+      margin-top: 8px;
+    }
+
+    .contact-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 0.65rem 1rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      font-size: 0.92rem;
+      line-height: 1.5;
+      font-family: "Open Sans", sans-serif;
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .contact-list li {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .contact-list a {
+      color: var(--ink);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .contact-list a:hover,
+    .contact-list a:focus-visible {
+      text-decoration: underline;
+      text-underline-offset: 0.16rem;
+      outline: none;
+    }
+
+    .contact-list svg {
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .divider {
+      color: var(--muted);
+      font-weight: 700;
+      user-select: none;
     }
 
     @media (max-width: 640px) {
@@ -428,22 +472,12 @@
         grid-column: auto;
         grid-row: auto;
       }
-
     }
 
     @media (hover: none) {
-      .page:has(.image-box:hover) .entry {
-        background: transparent !important;
-      }
-
       .entry:hover {
         position: static;
         z-index: auto;
-        background: transparent !important;
-      }
-
-      .entry:focus-visible {
-        background: #fff !important;
       }
 
       .image-box:hover,
@@ -452,9 +486,9 @@
         overflow: hidden !important;
       }
 
-      .image-box:hover::before,
-      .page:has(.entry:hover) .image-box::before {
-        opacity: 0 !important;
+      .image-box:hover img,
+      .page:has(.entry:hover) .image-box img {
+        --hover-image-scale: 1 !important;
       }
     }
   </style>
@@ -462,9 +496,33 @@
 <body>
   <div class="page">
     <header class="masthead">
-      <h1>NOAM ANGLO</h1>
-      <div class="subheader">PORTFOLIO - 2026</div>
+      <h1>noam anglo</h1>
     </header>
+
+    <footer class="site-footer" aria-label="Contact information">
+      <ul class="contact-list">
+        <li>
+          <a href="https://www.linkedin.com/in/n-anglo" target="_blank" rel="noreferrer" aria-label="LinkedIn profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.94 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm-1.2 1.1h2.4v8.5h-2.4v-8.5Zm4.4 0h2.3v1.16h.03c.32-.6 1.1-1.23 2.26-1.23 2.42 0 2.86 1.59 2.86 3.66v6.93h-2.4v-6.48c0-1.54-.03-3.52-2.14-3.52-2.15 0-2.48 1.68-2.48 3.4v6.6h-2.4v-8.5Z"/></svg>
+            <span>linkedin.com/in/n-anglo</span>
+          </a>
+        </li>
+        <li class="divider" aria-hidden="true">|</li>
+        <li>
+          <a href="https://www.instagram.com/noam.anglo/" target="_blank" rel="noreferrer" aria-label="Instagram profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="4"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            <span>@noam.anglo</span>
+          </a>
+        </li>
+        <li class="divider" aria-hidden="true">|</li>
+        <li>
+          <a href="mailto:anglo.noam@gmail.com" aria-label="Email address">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z"/><path d="m4.75 7.2 7.25 5.2 7.25-5.2"/></svg>
+            <span>anglo.noam@gmail.com</span>
+          </a>
+        </li>
+      </ul>
+    </footer>
 
     <main aria-label="Table of contents">
       <section class="image-grid" aria-label="Image placeholders">
@@ -561,25 +619,12 @@
           <span class="card-no">H</span>
           <div class="meta">
             <h2>Nanalysis 100MHz NMR Spectrometer</h2>
-            <p>Phasellus a massa nec tellus volutpat fermentum. Vestibulum scelerisque velit vel tristique finibus. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          </div>
-        </a>
-        <a class="entry" href="i.html">
-          <span class="card-no">I</span>
-          <div class="meta">
-            <h2>Placeholder I</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus fringilla turpis sed libero aliquet, ac pretium lorem accumsan.</p>
-          </div>
-        </a>
-        <a class="entry" href="j.html">
-          <span class="card-no">J</span>
-          <div class="meta">
-            <h2>Placeholder J</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut dapibus nisi, sed feugiat enim vel dui volutpat.</p>
+            <p>The world’s highest-field benchtop nuclear magnetic resonance spectrometer. The first benchtop NMR spectrometer to break the 100MHz ceiling, 100E/100PRO makes high-resolution spectroscopy accessible to more chemistry labs than ever.</p>
           </div>
         </a>
       </section>
     </main>
+
   </div>
   <script>
     const imageGrid = document.querySelector(".image-grid");
@@ -614,11 +659,9 @@
       if (!activeTile) return;
 
       activeTile.setAttribute("aria-expanded", "false");
-      activeTile.style.zIndex = "";
       detailsPanel.remove();
       activeTargets.forEach((tile) => {
         tile.hidden = false;
-        tile.style.pointerEvents = "";
       });
       activeTile = null;
       detailsPanel = null;
@@ -666,6 +709,8 @@
         panel.setAttribute("role", "group");
         panel.setAttribute("aria-label", `Details for ${details.title}`);
 
+        const content = document.createElement("div");
+        content.className = "image-details-content";
         const copy = document.createElement("div");
         copy.className = "image-details-copy";
         const title = document.createElement("h2");
@@ -676,7 +721,7 @@
           description.textContent = details.description;
           copy.append(description);
         }
-        panel.append(copy);
+        content.append(copy);
         if (details.link) {
           const projectLink = document.createElement("a");
           projectLink.className = "project-link";
@@ -684,52 +729,30 @@
           const label = document.createElement("span");
           label.textContent = "See this project";
           projectLink.append(label);
-          panel.append(projectLink);
+          content.append(projectLink);
         }
+        panel.append(content);
 
         targetTiles[0].before(panel);
         targetTiles.forEach((targetTile) => {
-          targetTile.style.pointerEvents = "none";
+          targetTile.hidden = true;
         });
-        tile.style.zIndex = "6";
         activeTile = tile;
         detailsPanel = panel;
         activeTargets = targetTiles;
         tile.setAttribute("aria-expanded", "true");
-        const sourceLeft = sourceRect.left - gridRect.left;
-        const sourceTop = sourceRect.top - gridRect.top;
+
         const targetLeft = targetRect.left - gridRect.left;
         const targetTop = targetRect.top - gridRect.top;
+        const panelWidth = targetRect.right - targetRect.left;
+        const panelHeight = targetRect.bottom - targetRect.top;
         panel.style.left = `${targetLeft}px`;
         panel.style.top = `${targetTop}px`;
-        panel.style.width = `${targetRect.right - targetRect.left}px`;
-        panel.style.height = `${targetRect.bottom - targetRect.top}px`;
-        const reveal = panel.animate([
-          {
-            left: `${sourceLeft}px`,
-            top: `${sourceTop}px`,
-            width: `${sourceRect.width}px`,
-            height: `${sourceRect.height}px`
-          },
-          {
-            left: `${targetLeft}px`,
-            top: `${targetTop}px`,
-            width: `${targetRect.right - targetRect.left}px`,
-            height: `${targetRect.bottom - targetRect.top}px`
-          }
-        ], {
-          duration: 520,
-          easing: "cubic-bezier(0.2, 0.8, 0.2, 1)",
-          fill: "forwards"
-        });
-        reveal.onfinish = () => {
-          if (detailsPanel === panel) {
-            targetTiles.forEach((targetTile) => {
-              targetTile.hidden = true;
-              targetTile.style.pointerEvents = "";
-            });
-          }
-        };
+        panel.style.width = `${panelWidth}px`;
+        panel.style.height = `${panelHeight}px`;
+        const tileStyle = getComputedStyle(tile);
+        const horizontalPadding = parseFloat(tileStyle.paddingLeft) + parseFloat(tileStyle.paddingRight);
+        content.style.width = `${panelWidth - horizontalPadding}px`;
       });
     });
 
